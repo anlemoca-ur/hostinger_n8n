@@ -1,0 +1,378 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get TG Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get TG Message": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order_update": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-04T17:06:32.631Z",
+  "description": null,
+  "id": "rT9ptBTGywm2xwO2-JXKA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "TG_trigger_Junior_Pizza",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "21fe0225-c149-4850-8bf5-c56f1881f286",
+      "name": "Telegram Trigger",
+      "webhookId": "b3711ea3-802d-445e-9c66-9c7bbb24849e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2c40f9e5-0092-4f8d-b894-fbe88c07f012",
+              "name": "message_type",
+              "value": "={{ \"text\" }}",
+              "type": "string"
+            },
+            {
+              "id": "495f02f7-36ef-4394-8b8a-409cdc13a119",
+              "name": "message_text",
+              "value": "={{ $json.callback_query.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "54949ec5-a1dc-4674-be56-ce888b946f8f",
+              "name": "message_from",
+              "value": "={{ $json.callback_query.data.split(\"\\n\")[1].split(\":\")[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "c170f06d-cd61-4fac-a26f-58b5f4cf1c43",
+              "name": "message_caption",
+              "value": "={{\"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "5b913e66-d8e1-4740-aec0-db5e19864451",
+              "name": "message_timestamp",
+              "value": "={{ $json.callback_query.data.split(\"\\n\")[0].split(\":\")[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "15eba086-56c2-454c-b9f7-11818b2f2026",
+              "name": "contact_name",
+              "value": "={{ $json.callback_query.message.text.split(\"`\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "5c54cabc-16e5-4242-996a-2ff2dfb5beea",
+              "name": "message_state",
+              "value": "={{ $json.callback_query.data.split(\"\\n\")[2].split(\":\")[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "a69a831d-3fee-4fd9-80e2-3fbacbc70d2e",
+              "name": "message_id",
+              "value": "={{ $json.callback_query.message.message_id }}",
+              "type": "number"
+            },
+            {
+              "id": "1bca6de3-688d-49aa-b3a3-395cad54af70",
+              "name": "message_waid",
+              "value": "={{ $json.callback_query.data.split('\\n')[1].split(':')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "24fce14c-0e44-4409-9636-5e63ae2babc7",
+              "name": "message_id",
+              "value": "={{ $json.callback_query.message.message_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        288,
+        0
+      ],
+      "id": "0641d4d7-ac1a-4d78-bce9-835d804d079a",
+      "name": "Get TG Message"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=The user sent the following message\nmessage_type: {{ $json.message_type }}\nmessage_text: {{ $json.message_text }}\nmessage_from: {{ $json.message_from }}\nmessage_caption: {{ $json.message_caption }}\nmessage_timestamp: {{ $json.message_timestamp }}\ncontact_name: {{ $json.contact_name }}\nmessage_state: {{ $json.message_state }}\nmessage_id: {{ $json.message_id }}\nmessage_waid: {{ $json.message_waid }}\n",
+        "options": {
+          "systemMessage": "Tu función es llamar la tool Order_update enviando los datos que se te pasan\nmessage_id es la orden que se debe actualizar"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        544,
+        0
+      ],
+      "id": "5f1afb03-5761-4132-bc93-1f8255252155",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        240
+      ],
+      "id": "8e18ee97-de0a-413a-908b-80f618e979fa",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "rApLLFqmtzECYTIb",
+          "mode": "list",
+          "cachedResultName": "Agente_Pedidos_TG_JPizza"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message_timestamp": "={{ $fromAI('message_timestamp', ``, 'number') }}",
+            "message_id": "={{ $fromAI('message_id', ``, 'number') }}",
+            "message_text": "={{ $fromAI('message_text', ``, 'string') }}",
+            "message_from": "={{ $fromAI('message_from', ``, 'string') }}",
+            "message_state": "={{ $fromAI('message_state', ``, 'string') }}",
+            "message_waid": "={{ $fromAI('message_waid', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "message_text",
+              "displayName": "message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "message_from",
+              "displayName": "message_from",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "message_timestamp",
+              "displayName": "message_timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "message_state",
+              "displayName": "message_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "message_waid",
+              "displayName": "message_waid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        848,
+        240
+      ],
+      "id": "615f9a1f-b648-4954-abae-d367de33a14a",
+      "name": "Order_update"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-thinking-exp-01-21",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        240
+      ],
+      "id": "a2b3ea0d-9266-4f62-80d8-c56a6e5914af",
+      "name": "Google Gemini Chat Model"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-02-04T17:06:32.635Z",
+      "createdAt": "2026-02-04T17:06:32.635Z",
+      "role": "workflow:owner",
+      "workflowId": "rT9ptBTGywm2xwO2-JXKA",
+      "projectId": "AVuKN0Pu5SOZWWZM",
+      "project": {
+        "updatedAt": "2026-01-27T14:25:58.744Z",
+        "createdAt": "2026-01-27T14:18:51.606Z",
+        "id": "AVuKN0Pu5SOZWWZM",
+        "name": "Andres Mora <anlemoca.pm@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df",
+        "projectRelations": [
+          {
+            "updatedAt": "2026-01-27T14:18:51.606Z",
+            "createdAt": "2026-01-27T14:18:51.606Z",
+            "userId": "821cb9a6-847f-4a99-9210-9205406262df",
+            "projectId": "AVuKN0Pu5SOZWWZM",
+            "user": {
+              "updatedAt": "2026-02-16T16:28:25.000Z",
+              "createdAt": "2026-01-27T14:18:51.297Z",
+              "id": "821cb9a6-847f-4a99-9210-9205406262df",
+              "email": "anlemoca.pm@gmail.com",
+              "firstName": "Andres",
+              "lastName": "Mora",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2026-01-27T14:27:09.754Z",
+                "personalization_survey_n8n_version": "2.4.6",
+                "automationGoalDevops": [
+                  "monitoring-alerting",
+                  "cloud-infrastructure-orchestration"
+                ],
+                "companyIndustryExtended": [
+                  "it-industry",
+                  "marketing-industry",
+                  "physical-retail-or-services"
+                ],
+                "companySize": "personalUser",
+                "companyType": "other",
+                "role": "it",
+                "reportedSource": "friend"
+              },
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-02-16",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "updatedAt": "2026-01-27T14:30:29.698Z",
+      "createdAt": "2026-01-27T14:30:29.698Z",
+      "id": "k8VtkRuNj0nGVUIP",
+      "name": "Comida con Menú"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-02-04T18:25:38.182Z",
+  "versionCounter": 2,
+  "versionId": "538545f6-196c-486a-a96d-bc83a694870c"
+}
