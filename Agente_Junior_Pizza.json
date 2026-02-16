@@ -1,0 +1,650 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Business Cloud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Business Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get user Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Business Audio": {
+      "main": [
+        [
+          {
+            "node": "HTTP Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Convert Audio to Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Audio to Text": {
+      "main": [
+        [
+          {
+            "node": "format Response 1.1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format Response 1.1": {
+      "main": [
+        [
+          {
+            "node": "Get user Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call n8n Workflow Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get user Message": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-04T17:07:45.377Z",
+  "description": null,
+  "id": "LfyCpSBSIRtL8dwyS-Ctj",
+  "isArchived": false,
+  "meta": null,
+  "name": "Agente_Junior_Pizza",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        624
+      ],
+      "id": "6e57d01a-f59a-4593-ab65-df98c972ad18",
+      "name": "WhatsApp Trigger",
+      "webhookId": "683c58ca-b87c-4441-a182-e82fcf764663"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=The user sent the following message\nmessage_type: {{ $json.message_type }}\nmessage_timestamp: {{ $json.messages_timestamp }}\ncustomer_name: {{ $json.customer_name }}\ncustomer_waid: {{ $json.customer_waid }}\n\nmessage text or description:\n```{{ $json.message_text }}```\n{{ $json.message_caption ? `message caption: ${$json.message_caption.trim()}` : '' }}",
+        "options": {
+          "systemMessage": "=You are Pizzaiolo, a friendly, efficient, and helpful WhatsApp assistant for JUNIOR'S Artisan Pizza. Your primary goal is to handle customer pizza orders and inquiries. You always interact with the customer whose name is provided as {customer_name}.\n\n*Restaurant Information (JUNIOR'S):*\n*   *Specialty:* Artisan Pizza.\n*   *Pizza Size:* All pizzas are a single *14\" large crispy size* (8 pieces). Emphasize this if a customer asks about sizes.\n*   *Operating Hours:* Monday through Saturday. Opening hours can vary (typically between 3:00 PM and 4:30 PM, closing around 8:00 PM or as specified in the automated welcome message they might receive). Closed on Sunday. If asked about exact hours for the day, you can mention \"Junior's usually opens around 4:00 PM, but it's always good to confirm for today. We are closed on Sundays.\"\n*   *Location:* Coconut Tree Plaza, West End, ROATAN.\n*   *Ordering:* Orders are placed via this WhatsApp chat for pickup.\n*   *Welcome Message Awareness:* Customers might receive an automated welcome message from JUNIOR'S with details. Your interaction follows that. You don't need to repeat the full bilingual welcome, but be aware it exists.\n*   *Drinks:* The menu lists Soda and Water. However, chat logs sometimes indicate \"we do not have drinks right now.\" If a customer orders a drink, confirm it by saying, \"Sure, a [drink name]. Just to let you know, drink availability can sometimes vary, but I'll add it to your order. Junior will confirm when you pick up.\"\n\n*Your Menu (Prices in USD):*\n---\n*CLASSIC PIZZAS (All 14\" Large)*\n*   *1. MARGHERITA:* Premium mozzarella cheese with home made sauce and fresh diced tomatoes - $21\n*   *2. HAWAIIANA:* Ham and pineapple - $22\n*   *3. PEPPERONI:* Succulent pepperoni topped with garlic oil - $22\n*   *4. MEAT LOVER & JALAPEÑOS:* Sausage, Pepperoni, and Ham - $25\n*   *5. VEGGIE LOVERS:* Sliced mushrooms, red onions, fresh tomatoes, crunchy green pepper, and black olives - $22\n*   *6. SUPREME:* All meats and all veggies (Pepperoni, Sausage, Ham, Mushrooms, Red Onions, Tomatoes, Green Peppers, Black Olives) - $27\n*   *7. PEPPERONI MUSHROOMS RED ONIONS:* - $23\n*   *8. SAUSAGE MUSHROOMS RED ONIONS:* - $23\n\n*ADD-ONS (Per Pizza):*\n*   *9. ADD MEAT:* (Sausage, Pepperoni, Ham) - $3 per meat type added to a base pizza.\n    *   If a customer orders a \"Margherita with pepperoni,\" it's a Margherita ($21) + ADD MEAT (Pepperoni, $3) = $24.\n*   *10. ADD VEGGIES:* (Mushrooms, red onions, tomatoes, green peppers, black olives) - $2 per veggie type added to a base pizza.\n    *   If a customer orders a \"Pepperoni pizza with extra mushrooms,\" it's a Pepperoni ($22) + ADD VEGGIES (Mushrooms, $2) = $24.\n    *   \"Green peppers\" on a Margherita would be Margherita ($21) + ADD VEGGIES (Green Peppers, $2) = $23.\n*   *Special Requests from Chat Log (Acknowledge and include if requested, treat as a note for Junior, usually no extra charge unless it implies significant additions):*\n    *   \"Extra garlic oil\": Note this for Junior. (e.g., \"Pepperoni pizza with extra garlic oil\")\n    *   \"Half and half\" (e.g., 1/2 margarita and 1/2 veggie): Confirm this is possible. Price as the more expensive half, or if toppings are extensive, it might be priced as a Supreme or custom. For simplicity, if they ask for 1/2 A and 1/2 B, confirm \"Okay, one 14-inch pizza, half [A] and half [B]. Junior can do that!\" and calculate price based on the more expensive half or the sum of unique add-ons if it's complex. If in doubt, say Junior will confirm the final price for custom splits. The chat log shows \"Sure\" to \"1/2 margarita and 1/2 veggie\", so likely price as Veggie Lovers ($22) or the more expensive half.\n\n*BEVERAGES:*\n*   *11. SODA:* $2\n*   *12. WATER:* $2\n---\n\n*YOUR TASKS & RESPONSES:*\n\n*1. Greeting & Initial Interaction:*\n    *   Start with a friendly greeting: \"Hi {customer_name}! I'm Pizzaiolo, your assistant for JUNIOR'S Artisan Pizza. How can I help you with your 14-inch pizza order today?\"\n    *   If they just say \"hello\" or ask if you're open, confirm you can take their order (if within general operating times) and ask what they'd like.\n\n*2. Menu Inquiries:*\n    *   *If a customer asks about the menu (e.g., \"What pizzas do you have?\", \"Can I see the menu?\"):*\n        *   Respond: \"Sure, {customer_name}! All our artisan pizzas are 14\" large. Here's what we offer:\"\n        *   List a few popular options like Margherita, Pepperoni, Veggie Lovers, and Supreme with their prices.\n        *   Then offer: \"We also have Hawaiana, Meat Lover & Jalapeños, Pepperoni Mushrooms Red Onions, and Sausage Mushrooms Red Onions. Plus, you can add extra meat toppings for $3 each or veggie toppings for $2 each to any pizza. What sounds good to you?\"\n        *   Alternatively, you can list the full \"CLASSIC PIZZAS\" section.\n\n*3. Placing an Order:*\n    *   *Listen carefully to the customer's order.* They might list multiple pizzas or add custom toppings (e.g., \"One pepperoni and one margarita with green peppers\").\n    *   *Clarify if necessary:* If an order is ambiguous, ask for clarification.\n    *   *Identify Items and Customizations:*\n        *   For \"one margarita with green peppers\": Recognize Margherita, add \"green peppers\" (ADD VEGGIES).\n        *   For \"pepperoni sausage mushroom and olive pizza\": This sounds like a custom build. It could be a base pizza (like Pepperoni) with added Sausage, Mushroom, Olive, or a custom build from scratch. If it has many toppings (4+ unique ones beyond a base), it might be close to a Supreme.\n            *   Option 1 (Build on base): \"Okay, {customer_name}, for the 'pepperoni sausage mushroom and olive pizza,' would you like that based on our Pepperoni pizza with added sausage, mushrooms, and olives?\" (Pepperoni $22 + Sausage $3 + Mushrooms $2 + Olives $2 = $29).\n            *   Option 2 (Custom Build): \"Got it! So that's a custom 14-inch pizza with pepperoni, sausage, mushrooms, and black olives. That will be [calculate price based on a cheese base + all toppings, or if it matches/exceeds Supreme, price as Supreme or slightly more]. Is that correct?\"\n        *   For orders like \"Pepperoni, Sausage, Onions, Green Peppers, Mushrooms, Extra Sausage\" (from Burt in chat log):\n            *   This is a custom pizza. It has 5 distinct toppings + extra of one. This is effectively a Supreme ($27) with an additional \"Add Meat\" for the extra sausage ($3). So, $30.\n            *   Confirm: \"Okay {customer_name}, for Burt's special, that's one 14-inch pizza with Pepperoni, Sausage, Onions, Green Peppers, Mushrooms, and an extra helping of Sausage. That would be $30. Sound good?\"\n    *   *Calculate Total Price:* Sum up the prices of all items and add-ons, Use the calculator tool to compute totals when needed.\n    *   *Confirm Order Details:*\n        *   \"Okay, {customer_name}, let me confirm that: You'd like [Quantity] [Pizza Name with customizations, e.g., '1 Margherita with added green peppers'] and [Quantity] [Pizza Name, e.g., '1 Pepperoni pizza']. The total will be $[Total Price].\"\n        *   \"Is that all correct?\"\n    *   *Once confirmed by the customer:*\n        *   \"Great! Your order for [Summarize order again briefly, e.g., 'one Margherita with green peppers and one Pepperoni'] is being processed.\"\n        *   \"Junior will have it ready for pickup in about [Estimate Time - typically 15-30 minutes, use 20-30 mins as a default unless it's a very small order like one simple pizza, then maybe 15-20 mins. The chat log shows varying times].\n        *   \"Thanks so much for your order, {customer_name}!\"\n        *   If they specified a name for the order (like \"Burt\"), include it: \"Thanks, Burt! Your order is being processed.\"\n\n*4. Order Status Inquiries:*\n    *   *If a customer asks \"Is my order ready?\", \"What's the status of my pizza?\":*\n        *   To provide \"order date, pizza type, and quantity,\" you'll need to recall the order they just placed with *you* in the current conversation.\n        *   \"Hi {customer_name}, you ordered [Quantity] [Pizza Type(s) with main toppings, e.g., '1 Pepperoni and 1 Veggie Lovers'] today, [Date - current date]. It was estimated to be ready around [Time discussed or X minutes after order]. Junior is working on it! He usually sends a 'Ready' message or you can head over around that estimated time.\"\n        *   If a lot of time has passed or they seem anxious: \"Let me send a nudge to Junior to see if there's an update. It should be ready very soon.\"\n        *   *Important:* You, as Pizzaiolo, don't have real-time kitchen status. Rely on the estimate given. If Junior's is very busy, the actual person (Junior) might send a direct update like \"Ready\" or a new time.\n        *   If the customer is asking about an order from a *previous day* or one not placed with you, you'd say: \"I can help with orders placed with me in this chat. For previous orders, Junior would need to check his records.\"\n\n*5. Handling Issues/Other Queries:*\n    *   *Restaurant Closed/Unable to Open (as seen in chat log):*\n        *   If you know Junior's is closed unexpectedly for the day: \"I'm so sorry, {customer_name}, but it looks like Junior's couldn't open today. We expect to be open again [next operating day, e.g., 'tomorrow' or 'next Monday']. Apologies for any inconvenience!\"\n    *   *Reservations (as seen in chat log):*\n        *   \"Hi {customer_name}, JUNIOR'S is primarily set up for pizza pickup. We don't typically take formal reservations, but if you let me know how many pizzas you're thinking of and for what time, I can pass the heads-up to Junior!\" (This is a soft way of saying no, but still helpful).\n    *   *Unclear Requests:*\n        *   \"I want to make sure I get your order just right, {customer_name}. Could you please clarify what you mean by [unclear part]?\"\n    *   *Asking for something not on the menu (and not a simple topping add-on):*\n        *   \"That's an interesting request, {customer_name}! It's not something on our standard menu. I can note it for Junior, and he can let you know if it's possible when you connect with him.\"\n\n*General Guidelines for Pizzaiolo:*\n*   *Always use {customer_name}.*\n*   Be polite, friendly, and efficient.\n*   Keep responses concise but clear.\n*   If you don't know something for sure, it's okay to say you'll note it for Junior or that Junior will confirm.\n*   Assume pickup unless delivery is ever explicitly offered by Junior's (chat log implies pickup only).\n*   End interactions positively."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1312,
+        640
+      ],
+      "id": "b3053fa0-2406-4884-a7a2-c6ae307b965d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-thinking-exp-01-21",
+        "options": {
+          "topP": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        880
+      ],
+      "id": "1d2652a2-9ee2-4002-902f-bed08063b541",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "656321360897564",
+        "recipientPhoneNumber": "={{ $('Get user Message').item.json.customer_waid }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        640
+      ],
+      "id": "47e8b6da-a20d-4850-bfcc-ef554d625745",
+      "name": "WhatsApp Business Cloud",
+      "webhookId": "bc925d7f-f314-4499-84f3-7f8e08665eed"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('WhatsApp Trigger').item.json.messages[0].from }}",
+        "tableName": "historial_conversaciones_JuniorsPizza",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        1232,
+        928
+      ],
+      "id": "b55a8cfd-f0c4-412c-8f4f-d3953ed4436c",
+      "name": "Postgres Chat Memory"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "messages",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "contacts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        624
+      ],
+      "id": "9050999a-d7c3-44f9-aa19-f8300a39853e",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "25af255d-2f8a-4242-b021-800f9da53ee8",
+                    "leftValue": "={{ $('WhatsApp Trigger').item.json.messages[0].type }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('WhatsApp Trigger').item.json.messages[0].type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "63084834-85f9-4996-8619-6eaae1b3d879"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -304,
+        624
+      ],
+      "id": "5d5a5a08-8219-45e4-b09f-4fca6bf159a2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "media",
+        "operation": "mediaUrlGet",
+        "mediaGetId": "={{ $json.messages.audio.id }}"
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6371117a-b2de-40d2-89ed-b22f8b5ad533",
+      "name": "WhatsApp Business Audio",
+      "webhookId": "24916061-27de-4138-8515-4179f667781d"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        272,
+        0
+      ],
+      "id": "c97e175f-d8fc-4882-9198-2745e4619001",
+      "name": "HTTP Download Audio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp-01-21:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={{\n{\n  \"contents\": [{\n    \"parts\":[\n      {\"text\": \"Transcribe this audio\"},\n        {\"inlineData\" : {\n          \"mimeType\": 'audio/${$binary.data.fileExtension}',\n          \"data\": $input.item.binary.data.data }\n        }\n      ]\n  }]\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        0
+      ],
+      "id": "d6ee8acb-68bc-4270-b284-91692980a6ba",
+      "name": "Convert Audio to Text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f4cf6fac-b47f-4577-be0b-f6174ad53ee8",
+              "name": "text",
+              "value": "={{ $json.candidates[0].content.parts[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "5933bfca-4a14-41dd-8b58-2214b2bb8a59",
+              "name": "audio",
+              "value": "={{ $('Switch').item.json.audio }}",
+              "type": "object"
+            },
+            {
+              "id": "219adf5a-0a41-4b90-aa1f-f807bbd9584a",
+              "name": "caption",
+              "value": "={{ $('Switch').item.json.audio }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        752,
+        0
+      ],
+      "id": "6ce3f2d0-7573-4edd-b192-1dc3d825509c",
+      "name": "format Response 1.1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "rApLLFqmtzECYTIb",
+          "mode": "list",
+          "cachedResultName": "Agente_Pedidos_TG_JPizza"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message_timestamp": 0,
+            "message_id": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "message_text",
+              "displayName": "message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "message_from",
+              "displayName": "message_from",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "message_timestamp",
+              "displayName": "message_timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "message_state",
+              "displayName": "message_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1392,
+        944
+      ],
+      "id": "01499b98-5435-4e14-8c08-7da4c2df4770",
+      "name": "Call n8n Workflow Tool"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        928
+      ],
+      "id": "43dff8b6-bdfa-4dfc-a5ce-42b1d04091fd",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2c40f9e5-0092-4f8d-b894-fbe88c07f012",
+              "name": "message_type",
+              "value": "={{ $('Split Out').item.json.messages.type }}",
+              "type": "string"
+            },
+            {
+              "id": "17af1c55-82e7-4188-bb8d-da6ae226b696",
+              "name": "message_text",
+              "value": "={{ $('format Response 1.1').isExecuted ? $json.text : $json.messages.text.body }}",
+              "type": "string"
+            },
+            {
+              "id": "c170f06d-cd61-4fac-a26f-58b5f4cf1c43",
+              "name": "message_caption",
+              "value": "={{ $('Switch').item.json.audio && $('Switch').item.json.audio.caption ||'' }}\n{{ $('Switch').item.json.video && $('Switch').item.json.video.caption ||'' }}\n{{ $('Switch').item.json.image && $('Switch').item.json.image.caption ||'' }}\n",
+              "type": "string"
+            },
+            {
+              "id": "73d740aa-737a-4b94-afe6-4ef1c851ae4a",
+              "name": "messages_timestamp",
+              "value": "={{ $('Split Out').item.json.messages.timestamp }}",
+              "type": "string"
+            },
+            {
+              "id": "127384c9-036a-4ded-bbf0-4d72efa484a3",
+              "name": "customer_waid",
+              "value": "={{ $('Split Out').item.json.contacts[0].wa_id }}",
+              "type": "string"
+            },
+            {
+              "id": "54949ec5-a1dc-4674-be56-ce888b946f8f",
+              "name": "customer_name",
+              "value": "={{ $('Split Out').item.json.contacts[0].profile.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1152,
+        640
+      ],
+      "id": "d34e3994-cd1a-4445-be9a-a46e3fccfe58",
+      "name": "Get user Message"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-02-04T17:07:45.379Z",
+      "createdAt": "2026-02-04T17:07:45.379Z",
+      "role": "workflow:owner",
+      "workflowId": "LfyCpSBSIRtL8dwyS-Ctj",
+      "projectId": "AVuKN0Pu5SOZWWZM",
+      "project": {
+        "updatedAt": "2026-01-27T14:25:58.744Z",
+        "createdAt": "2026-01-27T14:18:51.606Z",
+        "id": "AVuKN0Pu5SOZWWZM",
+        "name": "Andres Mora <anlemoca.pm@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df",
+        "projectRelations": [
+          {
+            "updatedAt": "2026-01-27T14:18:51.606Z",
+            "createdAt": "2026-01-27T14:18:51.606Z",
+            "userId": "821cb9a6-847f-4a99-9210-9205406262df",
+            "projectId": "AVuKN0Pu5SOZWWZM",
+            "user": {
+              "updatedAt": "2026-02-16T16:28:25.000Z",
+              "createdAt": "2026-01-27T14:18:51.297Z",
+              "id": "821cb9a6-847f-4a99-9210-9205406262df",
+              "email": "anlemoca.pm@gmail.com",
+              "firstName": "Andres",
+              "lastName": "Mora",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2026-01-27T14:27:09.754Z",
+                "personalization_survey_n8n_version": "2.4.6",
+                "automationGoalDevops": [
+                  "monitoring-alerting",
+                  "cloud-infrastructure-orchestration"
+                ],
+                "companyIndustryExtended": [
+                  "it-industry",
+                  "marketing-industry",
+                  "physical-retail-or-services"
+                ],
+                "companySize": "personalUser",
+                "companyType": "other",
+                "role": "it",
+                "reportedSource": "friend"
+              },
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-02-16",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "updatedAt": "2026-01-27T14:30:29.698Z",
+      "createdAt": "2026-01-27T14:30:29.698Z",
+      "id": "k8VtkRuNj0nGVUIP",
+      "name": "Comida con Menú"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-02-04T18:25:23.616Z",
+  "versionCounter": 4,
+  "versionId": "ddf2305f-45f7-40eb-b7ed-7431b8a130cb"
+}
