@@ -1,0 +1,647 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "processing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ready",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "+ 10 min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ready": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "+ 10 min": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Business Cloud1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-04T17:07:05.511Z",
+  "description": null,
+  "id": "lfbLuwG-uxGRxdHfre_by",
+  "isArchived": false,
+  "meta": null,
+  "name": "Agente_Pedidos_TG_JPizza",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "message_text"
+            },
+            {
+              "name": "message_from"
+            },
+            {
+              "name": "message_timestamp",
+              "type": "number"
+            },
+            {
+              "name": "message_id",
+              "type": "number"
+            },
+            {
+              "name": "message_state"
+            },
+            {
+              "name": "message_waid"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        224
+      ],
+      "id": "9118322a-c9a2-44c9-8214-d176af8e8e05",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "historial_ordenes_juniorspizza",
+          "mode": "list",
+          "cachedResultName": "historial_ordenes_juniorspizza"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.message_timestamp }}",
+            "message_text": "={{ $json.message_text }}",
+            "message_from": "={{ $json.message_from }}",
+            "message_timestamp": "={{ $json.message_timestamp }}",
+            "message_state": "={{ $json.message_state }}",
+            "message_waid": "={{ $json.message_waid }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_from",
+              "displayName": "message_from",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "message_text",
+              "displayName": "message_text",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "message_timestamp",
+              "displayName": "message_timestamp",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "message_state",
+              "displayName": "message_state",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "message_waid",
+              "displayName": "message_waid",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -608,
+        224
+      ],
+      "id": "0ed0efbf-30c1-449e-b527-fb9b98b91f9c",
+      "name": "Postgres"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message_state }}",
+                    "rightValue": "processing",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c2accb12-f36f-4e17-8e40-092e6f0a9776"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "processing"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "813a6047-1ca2-4238-aa6c-f291fdb02c5b",
+                    "leftValue": "={{ $json.message_state }}",
+                    "rightValue": "ready",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ready"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8df39786-ec5a-4fea-9707-cf50894d44d8",
+                    "leftValue": "={{ $json.message_state }}",
+                    "rightValue": "+10 minutes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "10 minutes"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -336,
+        224
+      ],
+      "id": "5edf5ae7-bb2a-45d1-99c0-bcac00290889",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "6929772961",
+        "text": "={{ $json.message_text }} ",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Ready",
+                    "additionalFields": {
+                      "callback_data": "=\"id\":{{ $json.message_timestamp.toJsonString() }}\n\"waid\":{{ $json.message_waid.toJsonString()}}\n\"state\":ready"
+                    }
+                  },
+                  {
+                    "text": "+10 minutes",
+                    "additionalFields": {
+                      "callback_data": "=\"id\":{{ $json.message_timestamp.toJsonString() }}\n\"waid\":{{ $json.message_waid.toJsonString()}}\n\"state\":+10 minutes"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7e851617-1719-4209-a825-f9a906538fe7",
+      "name": "processing",
+      "webhookId": "97c0a592-4b5c-4c2f-bd3f-c7154c9e7c00"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "6929772961",
+        "messageId": "={{ $('When Executed by Another Workflow').item.json.message_id }}",
+        "text": "={{ $('Postgres').item.json.message_text }}\n\"waid\":{{ $json.message_waid.toJsonString()}}\nstate: ready",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        224
+      ],
+      "id": "a4850fc0-8c79-4a46-b486-8c7891151ec6",
+      "name": "ready",
+      "webhookId": "97c0a592-4b5c-4c2f-bd3f-c7154c9e7c00"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "6929772961",
+        "messageId": "={{ $('When Executed by Another Workflow').item.json.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $json.message_text}}\nState: +10 minutes",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Ready",
+                    "additionalFields": {
+                      "callback_data": "=\"id\":{{ $json.message_timestamp.toJsonString() }}\n\"waid\":{{ $json.message_waid.toJsonString()}}\n\"state\":ready"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        480
+      ],
+      "id": "fc088224-2244-4a20-b8c5-9e93e3c581a2",
+      "name": "+ 10 min",
+      "webhookId": "97c0a592-4b5c-4c2f-bd3f-c7154c9e7c00"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        512
+      ],
+      "id": "23774cb2-5af9-452b-a0eb-94a610da0425",
+      "name": "Crear Chat",
+      "webhookId": "bc41b7d8-c711-48b8-8dc4-9042f97604a8",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "6929772961 chat telegram",
+        "height": 220,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        464
+      ],
+      "id": "3c13897c-92e5-4e94-97f7-4c5ced831c54",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "656321360897564",
+        "recipientPhoneNumber": "={{ $('When Executed by Another Workflow').item.json.message_waid }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        672,
+        224
+      ],
+      "id": "546d2729-c8cd-440c-8ac3-80cceedd32eb",
+      "name": "WhatsApp Business Cloud1",
+      "webhookId": "c709144e-7279-433d-8285-f31f573ff8c9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=The user sent the following message\nmessage_text: {{ $('Switch').item.json.message_text }}\nmessage_from: {{ $('Switch').item.json.message_from }}\nmessage_timestamp:{{ $('Switch').item.json.message_timestamp }}\ncontact_name: {{ $('Switch').item.json.message_text.split(\"`\")[0] }}\nmessage_state: {{ $('Switch').item.json.message_state }}\nmessage_id: {{ $('Switch').item.json.id }}\nmessage_waid: {{ $('Switch').item.json.message_waid }}\n",
+        "options": {
+          "systemMessage": "=You are Pizzaiolo, a friendly, efficient, bilingual (English and Spanish) and helpful WhatsApp assistant for JUNIOR'S Artisan Pizza. \nVerifica el idioma del texto para saber en que idioma contestar, tu función es informar el estado de un pedido a un cliente \"contact_name\" dependiendo del estado de la orden, si el estado llega como \"+10 minutes\" le informas que su orden se va tomar un poco mas de tiempo y si el estado es \"ready\", le informas que ya puede pasar por su pizza.\nSe lo mas conciso posible, no expliques lo que debes hacer, solo envia un mensaje con la actualización del estado.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        304,
+        224
+      ],
+      "id": "17c985b7-6289-487f-a8a5-7b02789442e8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('When Executed by Another Workflow').item.json.message_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        448
+      ],
+      "id": "212e60f5-ba69-471f-94b2-cf9e21232f17",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-thinking-exp-01-21",
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        240,
+        448
+      ],
+      "id": "d62cad66-5b82-4b98-8cd3-00ae3a6a7ae6",
+      "name": "Google Gemini Chat Model"
+    }
+  ],
+  "pinData": {
+    "Crear Chat": [
+      {
+        "json": {
+          "update_id": 315589294,
+          "message": {
+            "message_id": 40,
+            "from": {
+              "id": 6929772961,
+              "is_bot": false,
+              "first_name": "Andrés",
+              "last_name": "Mora",
+              "username": "Anlemoca",
+              "language_code": "en"
+            },
+            "chat": {
+              "id": 6929772961,
+              "first_name": "Andrés",
+              "last_name": "Mora",
+              "username": "Anlemoca",
+              "type": "private"
+            },
+            "date": 1747090949,
+            "text": "Aquí"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-02-04T17:07:05.514Z",
+      "createdAt": "2026-02-04T17:07:05.514Z",
+      "role": "workflow:owner",
+      "workflowId": "lfbLuwG-uxGRxdHfre_by",
+      "projectId": "AVuKN0Pu5SOZWWZM",
+      "project": {
+        "updatedAt": "2026-01-27T14:25:58.744Z",
+        "createdAt": "2026-01-27T14:18:51.606Z",
+        "id": "AVuKN0Pu5SOZWWZM",
+        "name": "Andres Mora <anlemoca.pm@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df",
+        "projectRelations": [
+          {
+            "updatedAt": "2026-01-27T14:18:51.606Z",
+            "createdAt": "2026-01-27T14:18:51.606Z",
+            "userId": "821cb9a6-847f-4a99-9210-9205406262df",
+            "projectId": "AVuKN0Pu5SOZWWZM",
+            "user": {
+              "updatedAt": "2026-02-16T16:28:25.000Z",
+              "createdAt": "2026-01-27T14:18:51.297Z",
+              "id": "821cb9a6-847f-4a99-9210-9205406262df",
+              "email": "anlemoca.pm@gmail.com",
+              "firstName": "Andres",
+              "lastName": "Mora",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2026-01-27T14:27:09.754Z",
+                "personalization_survey_n8n_version": "2.4.6",
+                "automationGoalDevops": [
+                  "monitoring-alerting",
+                  "cloud-infrastructure-orchestration"
+                ],
+                "companyIndustryExtended": [
+                  "it-industry",
+                  "marketing-industry",
+                  "physical-retail-or-services"
+                ],
+                "companySize": "personalUser",
+                "companyType": "other",
+                "role": "it",
+                "reportedSource": "friend"
+              },
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-02-16",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "updatedAt": "2026-01-27T14:30:29.698Z",
+      "createdAt": "2026-01-27T14:30:29.698Z",
+      "id": "k8VtkRuNj0nGVUIP",
+      "name": "Comida con Menú"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-02-04T18:25:32.084Z",
+  "versionCounter": 2,
+  "versionId": "567255a0-ab73-49ea-b32b-edb8f18cda18"
+}
