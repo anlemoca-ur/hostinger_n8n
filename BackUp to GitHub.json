@@ -199,9 +199,9 @@
       ]
     }
   },
-  "createdAt": "2026-02-16T16:30:34.459Z",
+  "createdAt": "2026-03-02T20:12:44.111Z",
   "description": null,
-  "id": "K1o0jtVfBSs2Lc13WReuE",
+  "id": "gSzh92c1VjwBfR9W",
   "isArchived": false,
   "meta": null,
   "name": "BackUp to GitHub",
@@ -215,7 +215,7 @@
         320
       ],
       "typeVersion": 1,
-      "id": "4997a09f-53e2-404f-8d5e-5ed189107894"
+      "id": "d4638f14-2a98-4b39-9bd4-7115282eb950"
     },
     {
       "parameters": {
@@ -228,7 +228,7 @@
         512
       ],
       "typeVersion": 1,
-      "id": "938a73af-ffe1-4a50-9ad7-b10cb42995b4"
+      "id": "4052783a-43dd-4f57-ad00-fbaefdc63115"
     },
     {
       "parameters": {
@@ -248,11 +248,11 @@
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
-      "id": "eaafd4a5-b6a3-493d-8214-04918faffafc",
+      "id": "fdb4decf-9bfb-460e-bf2f-2af70cf9c466",
       "webhookId": "8936ef2b-e07b-44f9-90e1-2f021376dc7a",
       "credentials": {
         "githubApi": {
-          "id": "apaeV9tvUt6TCHy7",
+          "id": "PRqWVHlaQhAL6Wul",
           "name": "GitHub account"
         }
       },
@@ -267,7 +267,7 @@
         544
       ],
       "typeVersion": 1,
-      "id": "81866f12-c683-4e71-8add-e95a6ad2042b"
+      "id": "c03e5175-996a-4a23-9c7e-044cabf0a3ae"
     },
     {
       "parameters": {
@@ -282,11 +282,11 @@
         704
       ],
       "typeVersion": 1,
-      "id": "bcc160ed-06ac-4107-b5e6-e2066c4ffd41",
+      "id": "dea7d490-4284-40dd-8fc6-f74f68039907",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "J0bLLsM4NCrBPU5b",
-          "name": "Header Auth account"
+          "id": "2bMVU57ouOC5x5np",
+          "name": "Header Auth n8n"
         }
       }
     },
@@ -317,7 +317,7 @@
         576
       ],
       "typeVersion": 1,
-      "id": "574859db-202b-4087-aa88-559330573465"
+      "id": "99527aef-c131-4e70-b7dc-2c943f5325f5"
     },
     {
       "parameters": {},
@@ -328,7 +328,7 @@
         208
       ],
       "typeVersion": 1,
-      "id": "a2611863-0c85-4eaa-b188-b16e2b9e5a02"
+      "id": "3c7a85c5-685b-4e1c-840b-94d584b4c910"
     },
     {
       "parameters": {},
@@ -339,7 +339,7 @@
         464
       ],
       "typeVersion": 1,
-      "id": "6238e4f8-4981-468e-8541-5831d1434562"
+      "id": "48ef415d-6188-449b-a916-b4eaf654e693"
     },
     {
       "parameters": {},
@@ -350,7 +350,7 @@
         736
       ],
       "typeVersion": 1,
-      "id": "0437b8fa-b8b2-48c3-938f-205cccff866f"
+      "id": "09f3eb6b-bb4d-4599-ae3c-09c3d2745093"
     },
     {
       "parameters": {
@@ -369,11 +369,11 @@
         496
       ],
       "typeVersion": 1,
-      "id": "6560e72b-2508-49b7-bd29-65e62e9782cc",
+      "id": "fed48068-4c9f-41b9-a122-f35332713a55",
       "webhookId": "ba072c79-ca77-4a00-8de2-7fab30e0d601",
       "credentials": {
         "githubApi": {
-          "id": "apaeV9tvUt6TCHy7",
+          "id": "PRqWVHlaQhAL6Wul",
           "name": "GitHub account"
         }
       }
@@ -402,11 +402,11 @@
         736
       ],
       "typeVersion": 1,
-      "id": "2a4d2ff6-66a7-4408-b890-b6e716dec348",
+      "id": "1d013695-b43c-443b-a020-d158288379c6",
       "webhookId": "fed334c2-93b5-4059-97b1-5f97e494b626",
       "credentials": {
         "githubApi": {
-          "id": "apaeV9tvUt6TCHy7",
+          "id": "PRqWVHlaQhAL6Wul",
           "name": "GitHub account"
         }
       }
@@ -429,7 +429,7 @@
         656
       ],
       "typeVersion": 1,
-      "id": "b6d017bb-62da-4701-890d-d5cab0bdf669"
+      "id": "bd3282f2-ecff-4e13-9317-7484ac06b850"
     },
     {
       "parameters": {
@@ -443,7 +443,7 @@
         512
       ],
       "typeVersion": 1,
-      "id": "46e063c8-30db-4ebe-828c-586839c71874"
+      "id": "aaea08f1-3071-4b71-8cf9-ba550fb4baa5"
     },
     {
       "parameters": {
@@ -471,7 +471,7 @@
         512
       ],
       "typeVersion": 1,
-      "id": "e2812d86-8756-4cce-af43-620d3d67fade"
+      "id": "9bda62d7-f320-4a7a-a015-2786b810293c"
     },
     {
       "parameters": {
@@ -483,7 +483,7 @@
         1536,
         608
       ],
-      "id": "956fa548-3099-4203-94ef-21d93c58c737",
+      "id": "973d920c-8166-43c8-8196-1d8cbc8d033c",
       "name": "isDiffOrNew"
     },
     {
@@ -496,7 +496,7 @@
         736,
         144
       ],
-      "id": "93936367-92e0-46bc-bbf3-862a4667aac8",
+      "id": "af6823e1-1524-407d-8682-96ec1d78ffe5",
       "name": "Code Depuracion",
       "disabled": true
     },
@@ -513,11 +513,11 @@
         512
       ],
       "typeVersion": 1,
-      "id": "53b9c92c-e42c-41f7-9331-422328629f56",
+      "id": "fcd303da-990a-4d32-8337-2e14f4edb72e",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "J0bLLsM4NCrBPU5b",
-          "name": "Header Auth account"
+          "id": "2bMVU57ouOC5x5np",
+          "name": "Header Auth n8n"
         }
       }
     },
@@ -532,37 +532,38 @@
         320,
         816
       ],
-      "id": "cbc37426-c09f-41b4-8658-21b646b3f0e8",
+      "id": "988eaca7-9125-4d47-b51b-9a6becfb6057",
       "name": "Get many workflows",
       "disabled": true
     },
     {
       "parameters": {
         "content": "## Note \n**Double click** to edit me.\npor primera vez se debe crear la carpeta en github\nla autenticacion de los nodos N8N workflow es con la API de N8N\nla variable nombre en header es X-N8N-API-KEY al 13/02/2026, antes aparecia como api_key \nla URL es la direccion en el navegador hasta app\nhttps://primary-production-3466c.up.railway.app/api/v1/workflows\n\nhttps://n8n.masuso.com/api/v1/workflows\n\n\n\n [Guide](https://docs.n8n.io/workflows/components/sticky-notes/)",
-        "height": 688,
+        "height": 512,
         "width": 448
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         0,
-        0
+        176
       ],
       "typeVersion": 1,
-      "id": "fbb75160-ec11-4de8-b4d1-4d024b08774e",
+      "id": "a3411b64-ee1d-4310-9e6e-62ce6ddaa5f1",
       "name": "Sticky Note"
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
+    "binaryMode": "separate",
     "availableInMCP": false
   },
   "shared": [
     {
-      "updatedAt": "2026-02-16T16:30:34.467Z",
-      "createdAt": "2026-02-16T16:30:34.467Z",
+      "updatedAt": "2026-03-02T20:12:44.112Z",
+      "createdAt": "2026-03-02T20:12:44.112Z",
       "role": "workflow:owner",
-      "workflowId": "K1o0jtVfBSs2Lc13WReuE",
+      "workflowId": "gSzh92c1VjwBfR9W",
       "projectId": "AVuKN0Pu5SOZWWZM",
       "project": {
         "updatedAt": "2026-01-27T14:25:58.744Z",
@@ -572,56 +573,14 @@
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df",
-        "projectRelations": [
-          {
-            "updatedAt": "2026-01-27T14:18:51.606Z",
-            "createdAt": "2026-01-27T14:18:51.606Z",
-            "userId": "821cb9a6-847f-4a99-9210-9205406262df",
-            "projectId": "AVuKN0Pu5SOZWWZM",
-            "user": {
-              "updatedAt": "2026-02-16T16:28:25.000Z",
-              "createdAt": "2026-01-27T14:18:51.297Z",
-              "id": "821cb9a6-847f-4a99-9210-9205406262df",
-              "email": "anlemoca.pm@gmail.com",
-              "firstName": "Andres",
-              "lastName": "Mora",
-              "personalizationAnswers": {
-                "version": "v4",
-                "personalization_survey_submitted_at": "2026-01-27T14:27:09.754Z",
-                "personalization_survey_n8n_version": "2.4.6",
-                "automationGoalDevops": [
-                  "monitoring-alerting",
-                  "cloud-infrastructure-orchestration"
-                ],
-                "companyIndustryExtended": [
-                  "it-industry",
-                  "marketing-industry",
-                  "physical-retail-or-services"
-                ],
-                "companySize": "personalUser",
-                "companyType": "other",
-                "role": "it",
-                "reportedSource": "friend"
-              },
-              "settings": {
-                "userActivated": false,
-                "easyAIWorkflowOnboarded": true
-              },
-              "disabled": false,
-              "mfaEnabled": false,
-              "lastActiveAt": "2026-02-16",
-              "isPending": false
-            }
-          }
-        ]
+        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df"
       }
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-02-16T21:50:51.063Z",
-  "versionCounter": 11,
-  "versionId": "d1db5534-aa88-4ede-b52e-9193dd2bbbd7"
+  "updatedAt": "2026-03-02T21:02:34.839Z",
+  "versionCounter": 6,
+  "versionId": "df678f27-b62a-4400-90bd-a1fcb9de32ef"
 }
