@@ -1,0 +1,84 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-03-02T20:05:44.445Z",
+  "description": null,
+  "id": "YhCyOHLf1IiuK1oR",
+  "isArchived": false,
+  "meta": null,
+  "name": "errorFlow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c7f66544-ef31-4220-9251-45e736b2f3f1",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "1006397214",
+        "text": "=Workflow:{{ $json.workflow.name }}\n\nError: {{ $json.execution.error.message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        304,
+        0
+      ],
+      "id": "a0482f1a-f6f5-4bc3-96bb-a921fe41b20f",
+      "name": "Telegram",
+      "webhookId": "0cd5eeb4-c98a-46b4-8b73-f935b7076871"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-03-02T20:05:44.447Z",
+      "createdAt": "2026-03-02T20:05:44.447Z",
+      "role": "workflow:owner",
+      "workflowId": "YhCyOHLf1IiuK1oR",
+      "projectId": "AVuKN0Pu5SOZWWZM",
+      "project": {
+        "updatedAt": "2026-01-27T14:25:58.744Z",
+        "createdAt": "2026-01-27T14:18:51.606Z",
+        "id": "AVuKN0Pu5SOZWWZM",
+        "name": "Andres Mora <anlemoca.pm@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "821cb9a6-847f-4a99-9210-9205406262df"
+      }
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-03-02T20:05:44.445Z",
+  "versionCounter": 1,
+  "versionId": "53829604-8dea-42d3-8462-a025ce61a5a8"
+}
